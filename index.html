@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>Bhinneka Tunggal Ika · Nusantara 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #120c06;
+      min-height: 100vh;
+      padding: 1.5rem 1rem;
+      font-family: 'Lato', sans-serif;
+      color: #f5eee6;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+      perspective: 1200px;
+      position: relative;
+    }
+
+    /* ===== BACKGROUND LAYER 3D ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: 
+        radial-gradient(ellipse at 20% 30%, #3d2b1a 0%, #120c06 60%),
+        repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(180, 140, 80, 0.015) 80px, rgba(180, 140, 80, 0.015) 81px);
+      z-index: 0;
+      animation: bgRotate 30s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes bgRotate {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1.1); }
+    }
+
+    /* ===== PARTIKEL BERKILAU ===== */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: radial-gradient(circle, #ffd700, transparent);
+      border-radius: 50%;
+      animation: particleFloat 12s infinite alternate ease-in-out;
+      box-shadow: 0 0 20px #ffd70066, 0 0 60px #ffd70033;
+      opacity: 0.3;
+    }
+
+    .particle:nth-child(1) { top: 10%; left: 20%; animation-duration: 14s; width: 6px; height: 6px; }
+    .particle:nth-child(2) { top: 30%; left: 70%; animation-duration: 18s; animation-delay: 3s; }
+    .particle:nth-child(3) { top: 60%; left: 10%; animation-duration: 16s; animation-delay: 5s; width: 5px; height: 5px; }
+    .particle:nth-child(4) { top: 80%; left: 80%; animation-duration: 20s; animation-delay: 2s; }
+    .particle:nth-child(5) { top: 50%; left: 50%; animation-duration: 22s; animation-delay: 7s; width: 8px; height: 8px; }
+    .particle:nth-child(6) { top: 20%; left: 90%; animation-duration: 15s; animation-delay: 4s; }
+    .particle:nth-child(7) { top: 70%; left: 40%; animation-duration: 19s; animation-delay: 6s; width: 3px; height: 3px; }
+    .particle:nth-child(8) { top: 40%; left: 30%; animation-duration: 17s; animation-delay: 8s; }
+
+    @keyframes particleFloat {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.2; }
+      25% { transform: translate(30px, -40px) scale(1.5) rotate(90deg); opacity: 0.6; }
+      50% { transform: translate(-20px, 30px) scale(0.8) rotate(180deg); opacity: 0.3; }
+      75% { transform: translate(40px, 20px) scale(1.3) rotate(270deg); opacity: 0.7; }
+      100% { transform: translate(-30px, -30px) scale(1) rotate(360deg); opacity: 0.2; }
+    }
+
+    /* ===== WAYANG KULIT 3D ===== */
+    .wayang-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .wayang-figure {
+      position: absolute;
+      font-size: 10rem;
+      color: #d4a050;
+      text-shadow: 0 0 80px #d4a05044, 0 0 160px #ff880044;
+      animation: wayang3D 25s infinite alternate ease-in-out;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 0 40px rgba(212, 160, 80, 0.15));
+    }
+
+    .wayang-figure:nth-child(1) { top: 5%; left: -5%; animation-duration: 28s; font-size: 14rem; }
+    .wayang-figure:nth-child(2) { bottom: 5%; right: -5%; animation-duration: 32s; animation-delay: 4s; font-size: 16rem; }
+    .wayang-figure:nth-child(3) { top: 35%; left: 45%; animation-duration: 22s; animation-delay: 6s; font-size: 8rem; opacity: 0.4; }
+    .wayang-figure:nth-child(4) { top: 8%; right: 8%; animation-duration: 30s; animation-delay: 2s; font-size: 9rem; }
+    .wayang-figure:nth-child(5) { bottom: 15%; left: 10%; animation-duration: 34s; animation-delay: 8s; font-size: 11rem; }
+
+    @keyframes wayang3D {
+      0% { transform: translate(0, 0) rotateY(0deg) rotateX(0deg) scale(1) translateZ(0); }
+      25% { transform: translate(40px, -30px) rotateY(15deg) rotateX(5deg) scale(1.05) translateZ(50px); }
+      50% { transform: translate(-30px, 40px) rotateY(-10deg) rotateX(-5deg) scale(0.95) translateZ(-30px); }
+      75% { transform: translate(50px, 20px) rotateY(20deg) rotateX(8deg) scale(1.02) translateZ(80px); }
+      100% { transform: translate(-40px, -40px) rotateY(-15deg) rotateX(-8deg) scale(0.98) translateZ(-50px); }
+    }
+
+    /* ===== AWAN MEGA MENDUNG 3D ===== */
+    .awan-container {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .mendung {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 50% 60%, rgba(200, 180, 160, 0.06), transparent 70%);
+      animation: mendung3D 35s infinite alternate ease-in-out;
+      transform-style: preserve-3d;
+      backdrop-filter: blur(2px);
+    }
+
+    .mendung:nth-child(1) { width: 45%; height: 22%; top: 2%; left: -12%; animation-duration: 40s; }
+    .mendung:nth-child(2) { width: 55%; height: 28%; top: 6%; right: -18%; animation-duration: 45s; animation-delay: 5s; }
+    .mendung:nth-child(3) { width: 35%; height: 18%; bottom: 12%; left: 15%; animation-duration: 32s; animation-delay: 10s; }
+    .mendung:nth-child(4) { width: 40%; height: 20%; top: 45%; right: 2%; animation-duration: 38s; animation-delay: 3s; }
+    .mendung:nth-child(5) { width: 30%; height: 15%; top: 75%; left: 55%; animation-duration: 42s; animation-delay: 7s; }
+
+    @keyframes mendung3D {
+      0% { transform: translateX(0) scale(1) rotateY(0deg) translateZ(0); opacity: 0.2; }
+      33% { transform: translateX(80px) scale(1.15) rotateY(10deg) translateZ(40px); opacity: 0.5; }
+      66% { transform: translateX(-60px) scale(0.9) rotateY(-8deg) translateZ(-30px); opacity: 0.3; }
+      100% { transform: translateX(40px) scale(1.05) rotateY(5deg) translateZ(20px); opacity: 0.6; }
+    }
+
+    /* ===== GUNUNGAN 3D ===== */
+    .gunungan {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 150px;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 10% 100%, rgba(180, 120, 60, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 100%, rgba(180, 120, 60, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(200, 150, 80, 0.06) 0%, transparent 60%);
+      animation: gunungan3D 10s infinite alternate ease-in-out;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes gunungan3D {
+      0% { opacity: 0.4; transform: scaleY(1) rotateX(0deg) translateZ(0); }
+      50% { opacity: 0.8; transform: scaleY(1.15) rotateX(5deg) translateZ(30px); }
+      100% { opacity: 0.6; transform: scaleY(1.05) rotateX(-3deg) translateZ(-20px); }
+    }
+
+    /* ===== CONTAINER UTAMA DENGAN 3D ===== */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(18, 12, 6, 0.82);
+      backdrop-filter: blur(12px);
+      border: 3px solid #b88a5e;
+      border-radius: 40px 12px 40px 12px;
+      padding: 2.5rem 2.8rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 
+        0 0 80px rgba(184, 138, 94, 0.08),
+        inset 0 0 100px rgba(184, 138, 94, 0.03),
+        0 30px 60px rgba(0,0,0,0.6);
+      transform-style: preserve-3d;
+      animation: container3D 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes container3D {
+      0% { transform: rotateY(-1deg) translateZ(10px); }
+      100% { transform: rotateY(1deg) translateZ(30px); }
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 44px 16px 44px 16px;
+      background: conic-gradient(from 0deg, #b88a5e33, #d4a05055, #b88a5e33, #d4a05055, #b88a5e33);
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0.3;
+      animation: borderGlow3D 8s infinite alternate;
+    }
+
+    @keyframes borderGlow3D {
+      0% { opacity: 0.2; transform: rotate(0deg) scale(1); }
+      100% { opacity: 0.6; transform: rotate(360deg) scale(1.05); }
+    }
+
+    /* ===== ORNAMEN ===== */
+    .ornament {
+      text-align: center;
+      font-size: 2.4rem;
+      letter-spacing: 20px;
+      color: #b88a5e88;
+      margin: 0.4rem 0 0.2rem;
+      user-select: none;
+      animation: ornament3D 4s infinite alternate;
+      transform-style: preserve-3d;
+      text-shadow: 0 0 40px #b88a5e33;
+    }
+
+    @keyframes ornament3D {
+      0% { transform: translateZ(10px) scale(1); opacity: 0.5; }
+      100% { transform: translateZ(40px) scale(1.05); opacity: 1; }
+    }
+
+    .ornament-line {
+      border: 0;
+      height: 3px;
+      background: linear-gradient(to right, transparent, #b88a5e88, #d4a050aa, #b88a5e88, transparent);
+      margin: 0.6rem 0 1.8rem;
+      border-radius: 10px;
+      animation: line3D 4s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes line3D {
+      0% { transform: scaleX(1) translateZ(0); opacity: 0.5; }
+      100% { transform: scaleX(1.02) translateZ(20px); opacity: 1; }
+    }
+
+    /* ===== JUDUL 3D ===== */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 3.8rem;
+      text-align: center;
+      color: #f0d8a8;
+      text-shadow: 0 0 60px rgba(184, 138, 94, 0.2), 0 10px 40px rgba(0,0,0,0.5);
+      letter-spacing: 10px;
+      transform-style: preserve-3d;
+      animation: title3D 5s infinite alternate;
+    }
+
+    @keyframes title3D {
+      0% { transform: translateZ(20px); text-shadow: 0 0 40px rgba(184, 138, 94, 0.15); }
+      100% { transform: translateZ(60px); text-shadow: 0 0 80px rgba(184, 138, 94, 0.3); }
+    }
+
+    h1 .aksara {
+      font-size: 2rem;
+      display: block;
+      letter-spacing: 16px;
+      color: #d4a050;
+      opacity: 0.6;
+      font-weight: 400;
+      margin-top: -0.2rem;
+      animation: aksara3D 6s infinite alternate;
+    }
+
+    @keyframes aksara3D {
+      0% { transform: translateZ(10px) scale(1); opacity: 0.4; }
+      100% { transform: translateZ(50px) scale(1.05); opacity: 0.8; }
+    }
+
+    .subhead {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #c4a87a;
+      letter-spacing: 12px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin-top: 0.2rem;
+      border-top: 1px solid rgba(184, 138, 94, 0.2);
+      border-bottom: 1px solid rgba(184, 138, 94, 0.2);
+      padding: 0.5rem 0;
+      animation: subhead3D 5s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes subhead3D {
+      0% { transform: translateZ(10px); opacity: 0.7; }
+      100% { transform: translateZ(40px); opacity: 1; }
+    }
+
+    /* ===== HEADING 2 ===== */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: #f0d8a8;
+      border-bottom: 4px double #b88a5e;
+      padding-bottom: 0.4rem;
+      margin-top: 2.4rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-shadow: 0 0 40px rgba(184, 138, 94, 0.1);
+      transform-style: preserve-3d;
+      animation: h2float 4s infinite alternate;
+    }
+
+    @keyframes h2float {
+      0% { transform: translateZ(10px); border-color: #b88a5e; }
+      100% { transform: translateZ(40px); border-color: #d4a050; }
+    }
+
+    h2 i {
+      color: #d4a050;
+      font-size: 1.8rem;
+      animation: icon3D 3s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes icon3D {
+      0% { transform: rotateY(0deg) translateZ(10px) scale(1); }
+      100% { transform: rotateY(180deg) translateZ(40px) scale(1.1); }
+    }
+
+    /* ===== GRID 3D ===== */
+    .grid-nusantara {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.4rem;
+      margin: 1.2rem 0;
+    }
+
+    .grid-item {
+      background: rgba(60, 40, 25, 0.25);
+      border: 1px solid #b88a5e44;
+      border-radius: 24px 6px 24px 6px;
+      padding: 1rem 1.2rem;
+      backdrop-filter: blur(6px);
+      transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+      animation: gridItem3D 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .grid-item:nth-child(1) { animation-delay: 0.05s; }
+    .grid-item:nth-child(2) { animation-delay: 0.10s; }
+    .grid-item:nth-child(3) { animation-delay: 0.15s; }
+    .grid-item:nth-child(4) { animation-delay: 0.20s; }
+    .grid-item:nth-child(5) { animation-delay: 0.25s; }
+    .grid-item:nth-child(6) { animation-delay: 0.30s; }
+    .grid-item:nth-child(7) { animation-delay: 0.35s; }
+    .grid-item:nth-child(8) { animation-delay: 0.40s; }
+
+    @keyframes gridItem3D {
+      0% { opacity: 0; transform: translateY(30px) rotateX(10deg) rotateY(-10deg) translateZ(-30px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0) rotateY(0) translateZ(0); }
+    }
+
+    .grid-item:hover {
+      transform: translateY(-10px) rotateX(4deg) rotateY(6deg) translateZ(40px) scale(1.02);
+      border-color: #d4a050;
+      box-shadow: 0 20px 50px rgba(184, 138, 94, 0.2);
+      background: rgba(80, 55, 35, 0.4);
+    }
+
+    /* ===== CHIP 3D ===== */
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.9rem;
+      margin: 0.3rem 0 0.6rem;
+    }
+
+    .chip {
+      background: rgba(184, 138, 94, 0.08);
+      border: 1px solid #b88a5e44;
+      border-radius: 36px 4px 36px 4px;
+      padding: 0.25rem 1.1rem;
+      font-size: 0.82rem;
+      color: #e8ddd0;
+      transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+      animation: chip3D 0.5s ease forwards;
+      opacity: 0;
+      cursor: default;
+    }
+
+    .chip:nth-child(1) { animation-delay: 0.02s; }
+    .chip:nth-child(2) { animation-delay: 0.04s; }
+    .chip:nth-child(3) { animation-delay: 0.06s; }
+    .chip:nth-child(4) { animation-delay: 0.08s; }
+    .chip:nth-child(5) { animation-delay: 0.10s; }
+    .chip:nth-child(6) { animation-delay: 0.12s; }
+    .chip:nth-child(7) { animation-delay: 0.14s; }
+    .chip:nth-child(8) { animation-delay: 0.16s; }
+    .chip:nth-child(9) { animation-delay: 0.18s; }
+    .chip:nth-child(10) { animation-delay: 0.20s; }
+    .chip:nth-child(11) { animation-delay: 0.22s; }
+    .chip:nth-child(12) { animation-delay: 0.24s; }
+    .chip:nth-child(13) { animation-delay: 0.26s; }
+    .chip:nth-child(14) { animation-delay: 0.28s; }
+    .chip:nth-child(15) { animation-delay: 0.30s; }
+
+    @keyframes chip3D {
+      0% { opacity: 0; transform: translateY(15px) rotateX(8deg) rotateZ(-4deg) translateZ(-20px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0) rotateZ(0) translateZ(0); }
+    }
+
+    .chip:hover {
+      transform: translateY(-4px) rotateX(3deg) rotateY(5deg) translateZ(30px) scale(1.06);
+      border-color: #d4a050;
+      background: rgba(184, 138, 94, 0.18);
+      box-shadow: 0 10px 40px rgba(184, 138, 94, 0.15);
+    }
+
+    /* ===== SECTION BOX 3D ===== */
+    .section-box {
+      background: rgba(40, 28, 18, 0.25);
+      border-left: 5px solid #b88a5e;
+      border-radius: 14px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 0.8rem;
+      backdrop-filter: blur(6px);
+      transform-style: preserve-3d;
+      transition: 0.3s;
+    }
+
+    .section-box:hover {
+      transform: translateZ(20px) rotateX(1deg);
+      border-left-color: #d4a050;
+      box-shadow: 0 10px 30px rgba(184, 138, 94, 0.05);
+    }
+
+    .section-box-alt {
+      background: rgba(40, 28, 18, 0.15);
+      border: 1px solid #b88a5e33;
+      border-radius: 18px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 0.8rem;
+      backdrop-filter: blur(6px);
+      transition: 0.3s;
+      transform-style: preserve-3d;
+    }
+
+    .section-box-alt:hover {
+      transform: translateZ(20px) rotateX(-1deg);
+      border-color: #b88a5e66;
+      box-shadow: 0 10px 30px rgba(184, 138, 94, 0.05);
+    }
+
+    /* ===== TABEL 3D ===== */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border: 2px solid #b88a5e66;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.25);
+      transform-style: preserve-3d;
+      transition: 0.3s;
+    }
+
+    .table-wrap:hover {
+      transform: translateZ(20px);
+      box-shadow: 0 15px 40px rgba(184, 138, 94, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 0.7rem 1.2rem;
+      border-bottom: 1px solid #b88a5e33;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(184, 138, 94, 0.12);
+      color: #f0d8a8;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    .total-row td {
+      background: rgba(184, 138, 94, 0.15);
+      font-weight: 900;
+      color: #f0d8a8;
+    }
+
+    /* ===== GALERI 3D ===== */
+    .galeri-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.4rem;
+      margin: 1.2rem 0;
+    }
+
+    .galeri-item {
+      background: rgba(40, 28, 18, 0.3);
+      border: 1px solid #b88a5e44;
+      border-radius: 28px 4px 28px 4px;
+      padding: 1.2rem 0.6rem;
+      text-align: center;
+      transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+      animation: galeri3D 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .galeri-item:nth-child(1) { animation-delay: 0.05s; }
+    .galeri-item:nth-child(2) { animation-delay: 0.10s; }
+    .galeri-item:nth-child(3) { animation-delay: 0.15s; }
+    .galeri-item:nth-child(4) { animation-delay: 0.20s; }
+    .galeri-item:nth-child(5) { animation-delay: 0.25s; }
+    .galeri-item:nth-child(6) { animation-delay: 0.30s; }
+    .galeri-item:nth-child(7) { animation-delay: 0.35s; }
+    .galeri-item:nth-child(8) { animation-delay: 0.40s; }
+    .galeri-item:nth-child(9) { animation-delay: 0.45s; }
+    .galeri-item:nth-child(10) { animation-delay: 0.50s; }
+    .galeri-item:nth-child(11) { animation-delay: 0.55s; }
+    .galeri-item:nth-child(12) { animation-delay: 0.60s; }
+
+    @keyframes galeri3D {
+      0% { opacity: 0; transform: translateY(30px) rotateX(8deg) rotateY(-8deg) translateZ(-40px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0) rotateY(0) translateZ(0); }
+    }
+
+    .galeri-item:hover {
+      transform: translateY(-12px) rotateX(5deg) rotateY(8deg) translateZ(50px) scale(1.04);
+      border-color: #d4a050;
+      box-shadow: 0 20px 50px rgba(184, 138, 94, 0.15);
+      background: rgba(60, 40, 25, 0.5);
+    }
+
+    .galeri-item i {
+      font-size: 2.8rem;
+      color: #d4a050;
+      display: block;
+      margin-bottom: 0.4rem;
+      animation: iconGaleri3D 3s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes iconGaleri3D {
+      0% { transform: rotateY(0deg) scale(1); }
+      100% { transform: rotateY(180deg) scale(1.1); }
+    }
+
+    .galeri-item span {
+      font-size: 0.8rem;
+      color: #d4c8b8;
+      display: block;
+      line-height: 1.4;
+    }
+
+    /* ===== TANDA TANGAN 3D ===== */
+    .ttd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin: 1.8rem 0 0.5rem;
+      padding: 1.2rem 0;
+      border-top: 4px double #b88a5e66;
+      border-bottom: 4px double #b88a5e66;
+    }
+
+    .ttd-item {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      padding: 0.3rem 0.8rem;
+      border-left: 4px solid #b88a5e;
+      padding-left: 1rem;
+      transition: 0.3s;
+      transform-style: preserve-3d;
+    }
+
+    .ttd-item:hover {
+      transform: translateZ(30px) rotateX(2deg);
+      border-left-color: #d4a050;
+    }
+
+    .ttd-item .nama {
+      font-weight: 700;
+      color: #f0d8a8;
+    }
+    .ttd-item .jabatan {
+      font-style: italic;
+      color: #b8a088;
+      font-size: 0.8rem;
+    }
+
+    /* ===== FOOTER 3D ===== */
+    .footer-nusantara {
+      margin-top: 2.8rem;
+      padding: 1.4rem;
+      text-align: center;
+      background: rgba(184, 138, 94, 0.04);
+      border: 2px solid #b88a5e66;
+      border-radius: 80px 8px 80px 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #f0d8a8;
+      letter-spacing: 14px;
+      text-shadow: 0 0 60px rgba(184, 138, 94, 0.15);
+      animation: footer3D 5s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes footer3D {
+      0% { transform: translateZ(10px) scale(1); border-color: #b88a5e66; text-shadow: 0 0 30px rgba(184, 138, 94, 0.1); }
+      100% { transform: translateZ(50px) scale(1.02); border-color: #d4a050aa; text-shadow: 0 0 80px rgba(184, 138, 94, 0.3); }
+    }
+
+    .footer-nusantara small {
+      display: block;
+      font-size: 1.2rem;
+      letter-spacing: 10px;
+      font-weight: 400;
+      color: #b8a088;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    p {
+      line-height: 2;
+      margin-bottom: 0.8rem;
+      text-align: justify;
+      font-size: 1rem;
+      color: #e8ddd0;
+      transform-style: preserve-3d;
+      transition: 0.3s;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #d4a050;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      animation: h3float 4s infinite alternate;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes h3float {
+      0% { transform: translateZ(5px); }
+      100% { transform: translateZ(30px); }
+    }
+
+    h4 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #e8c88a;
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    ul, ol {
+      padding-left: 1.8rem;
+      color: #e8ddd0;
+      line-height: 2;
+    }
+    ul li, ol li { margin-bottom: 0.2rem; }
+    ul li::marker { color: #d4a050; }
+    ol li::marker { color: #d4a050; font-weight: 700; }
+
+    a {
+      color: #d4a050;
+      text-decoration: none;
+      border-bottom: 1px dashed #b88a5e66;
+      transition: 0.3s;
+    }
+    a:hover { color: #f0d8a8; border-bottom-color: #d4a050; transform: translateZ(10px); display: inline-block; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .container { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.6rem; }
+      .grid-nusantara { grid-template-columns: 1fr 1fr; }
+      .galeri-grid { grid-template-columns: 1fr 1fr; }
+      .footer-nusantara { font-size: 2rem; letter-spacing: 6px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid-nusantara { grid-template-columns: 1fr; }
+      .galeri-grid { grid-template-columns: 1fr; }
+      .ttd-grid { grid-template-columns: 1fr; }
+      .chip-wrap { gap: 0.3rem; }
+      .container { padding: 1rem 0.8rem; }
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    .container > * {
+      animation: fadeIn3D 0.8s ease forwards;
+      opacity: 0;
+    }
+    .container > *:nth-child(1) { animation-delay: 0.02s; }
+    .container > *:nth-child(2) { animation-delay: 0.04s; }
+    .container > *:nth-child(3) { animation-delay: 0.06s; }
+    .container > *:nth-child(4) { animation-delay: 0.08s; }
+    .container > *:nth-child(5) { animation-delay: 0.10s; }
+    .container > *:nth-child(6) { animation-delay: 0.12s; }
+    .container > *:nth-child(7) { animation-delay: 0.14s; }
+    .container > *:nth-child(8) { animation-delay: 0.16s; }
+    .container > *:nth-child(9) { animation-delay: 0.18s; }
+    .container > *:nth-child(10) { animation-delay: 0.20s; }
+    .container > *:nth-child(11) { animation-delay: 0.22s; }
+    .container > *:nth-child(12) { animation-delay: 0.24s; }
+    .container > *:nth-child(13) { animation-delay: 0.26s; }
+    .container > *:nth-child(14) { animation-delay: 0.28s; }
+    .container > *:nth-child(15) { animation-delay: 0.30s; }
+    .container > *:nth-child(16) { animation-delay: 0.32s; }
+    .container > *:nth-child(17) { animation-delay: 0.34s; }
+    .container > *:nth-child(18) { animation-delay: 0.36s; }
+    .container > *:nth-child(19) { animation-delay: 0.38s; }
+    .container > *:nth-child(20) { animation-delay: 0.40s; }
+
+    @keyframes fadeIn3D {
+      0% { opacity: 0; transform: translateY(25px) rotateX(5deg) translateZ(-20px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0) translateZ(0); }
+    }
+
+    /* ===== MATIKAN SEMUA ANIMASI DI SELURUH WEB ===== */
+    body::before,
+    .particle,
+    .wayang-figure,
+    .mendung,
+    .gunungan,
+    .container,
+    .container::before,
+    .ornament,
+    .ornament-line,
+    h1,
+    h1 .aksara,
+    .subhead,
+    h2,
+    h2 i,
+    .grid-item,
+    .chip,
+    .galeri-item,
+    .galeri-item i,
+    .footer-nusantara,
+    h3,
+    .container > * {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== PARTIKEL ===== -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- ===== WAYANG KULIT 3D ===== -->
+  <div class="wayang-bg">
+    <div class="wayang-figure">𖦹</div>
+    <div class="wayang-figure">꧁</div>
+    <div class="wayang-figure">꧂</div>
+    <div class="wayang-figure">☯</div>
+    <div class="wayang-figure">✦</div>
+  </div>
+
+  <!-- ===== AWAN MEGA MENDUNG 3D ===== -->
+  <div class="awan-container">
+    <div class="mendung"></div>
+    <div class="mendung"></div>
+    <div class="mendung"></div>
+    <div class="mendung"></div>
+    <div class="mendung"></div>
+  </div>
+
+  <!-- ===== GUNUNGAN ===== -->
+  <div class="gunungan"></div>
+
+  <!-- ===== CONTAINER UTAMA ===== -->
+  <div class="container">
+
+    <!-- ORNAMEN -->
+    <div class="ornament">❦ ❧ ✿ ❧ ❦</div>
+    <div class="ornament-line"></div>
+
+    <!-- JUDUL -->
+    <h1>
+      BHINNEKA TUNGGAL IKA
+      <span class="aksara">꧋ꦨ꦳ꦶꦤ꧀ꦤꦺꦏꦠꦸꦁꦒꦭ꧀ꦆꦏ꧈</span>
+    </h1>
+    <div class="subhead">Periode 2026-2027 · Darunnajah Islamic Boarding School</div>
+    <div class="ornament" style="margin-top:0.2rem;">꧁ ༺ ✦ ༻ ꧂</div>
+
+    <!-- ==================== 1. PENDAHULUAN ==================== -->
+    <h2><i class="fas fa-scroll"></i> 1. Pendahuluan</h2>
+    <p>Pondok pesantren Darunnajah adalah pesantren yang dirintis sejak 1942, didirikan pada tanggal 1 April 1974 oleh 3 tokoh pendiri, mereka adalah (Alm) KH. Abdul Manaf Mukhayyar, (Alm) KH. Mahrus Amin, dan (Alm) KH. Khamaruzzaman. Sejak dirintisnya, Darunnajah mengalami proses yang tidak mudah. Seperti:</p>
+    <ul>
+      <li>• Pergusuran tempat</li>
+      <li>• Pergantian nama, dsb.</li>
+    </ul>
+    <p>Proses tersebut menjadikan Darunnajah, pondok pesantren modern yang memiliki banyak pencapaian sehingga memiliki 23 cabang yang tersebar di seluruh Indonesia.</p>
+    <p>Bhinneka Tunggal Ika merupakan sebuah acara yang dipanitiai oleh kelas 4 TMI atau setara dengan 1 SMA. Acara ini merupakan rentetan kegiatan dalam Pekan Olahraga, Seni dan Pramuka (PORSEKA), yang diikuti oleh seluruh santriwati baru dengan semangat dan antusiasme yang luar biasa. Tentunya acara ini diadakan untuk melatih rasa kepercayaan diri santriwati, meningkatkan kreativitas santriwati, mengenalkan serta mengingatkan kepada seluruh santriwati terkait budaya nusantara agar tidak terlupakan oleh pengaruh perkembangan zaman.</p>
+
+    <!-- ==================== 2. VISI MISI ==================== -->
+    <h2><i class="fas fa-flag"></i> 2. Visi Misi</h2>
+    <h3>Kegiatan</h3>
+    <p><strong>Bhinneka Tunggal Ika Periode 2026-2027 Darunnajah Islamic Boarding School</strong></p>
+    <p style="font-style:italic; color:#d4a050;">Bersatu dalam Ragam, Harmoni dalam budaya</p>
+    <p><strong>Makna :</strong> Menyatukan generasi muda dalam keberagaman budaya Indonesia ditengah maraknya budaya asing yang masuk kedalam negeri.</p>
+
+    <h3>Tema</h3>
+    <p>Mewujudkan acara Bhinneka Tunggal Ika sebagai  wadah persatuan yang menyalurkan minat dan bakat  santriwati dengan meningkatkan kreatifitas dan  melatih dasar kepemimpinan dengan  mempertahankan warisan dan budaya Indonesia  sebagai wujud cinta tanah air.</p>
+
+    <h3>Misi</h3>
+    <ol>
+      <li>Menanamkan jiwa ukhuwah islamiyah dalam setiap keberagaman.</li>
+      <li>Membentuk kepercayaan diri para santriwati yang tampil pada acara Bhinneka Tunggal Ika.</li>
+      <li>Menumbuhkan rasa nasionalisme di dalam diri para santriwati dengan ikut berpartisipasi dalam acara Bhinneka Tunggal Ika.</li>
+      <li>Menciptakan inovasi dalam upaya melestarikan warisan dan budaya Indonesia.</li>
+      <li>Menanamkan rasa solidaritas dan tanggung jawab dalam kepanitiaan Bhinneka Tunggal Ika.</li>
+    </ol>
+
+    <!-- ==================== 3. MAKSUD DAN TUJUAN ==================== -->
+    <h2><i class="fas fa-bullseye"></i> 3. Maksud dan Tujuan</h2>
+    <p>Semboyan Bhinneka Tunggal Ika diciptakan untuk  mengembangkan motivasi dan menghargai keberagaman.  Tanpa wawasan tersebut, akan sulit untuk memajukan  persatuan dan mempertahankan kemerdekaan nasional  Indonesia. Cita-cita tersebut telah menjadi landasan  nasionalisme masyarakat Indonesia sejak negeri ini merdeka.  Maka dengan itu, maksud dan tujuan dilaksanakannya  kegiatan ini yaitu untuk mengenalkan kepada para santri  baru tentang kekayaan budaya di Indonesia yang berbeda  tetapi tetap satu. Dalam kegiatan ini, para santri baru akan  dijunjung untuk menjalin hubungan kerjasama serta saling  memperkenalkan keberagaman budaya dari mana tempat  mereka berasal.  Tidak hanya itu, kegiatan ini juga bermaksud untuk  memberikan kesempatan kepada santri untuk berkreasi dan  berinovasi serta meningkatkan kreatifitasnya, juga bertujuan  untuk menumbuhkan rasa percaya diri dan  optimisme para santri agar ingin dan berani untuk  tampil di depan banyak orang dalam pentas seni  <strong>BHINNEKA TUNGGAL IKA</strong></p>
+
+    <!-- ==================== 4. WAKTU DAN TEMPAT ==================== -->
+    <h2><i class="fas fa-clock"></i> 4. Waktu &amp; Tempat</h2>
+    <div class="section-box">
+      <p style="margin-bottom:0.2rem;"><strong>Gedung Olahraga Pondok</strong><br>
+      <strong>Gedung Olahraga Pondok</strong><br>
+      <strong>Gedung Olahraga Pondok</strong><br>
+      <strong>Pesantren Darunnajah</strong><br>
+      <strong>Pesantren Darunnajah</strong><br>
+      <strong>Pesantren Darunnajah</strong><br>
+      <strong>Gedung Olahraga Pondok</strong><br>
+      <strong>Pesantren Darunnajah</strong></p>
+      <p style="margin-top:0.6rem;"><i class="fas fa-calendar-alt" style="color:#d4a050; width:1.6rem;"></i> <strong>Tanggal :</strong> 13 September 2026</p>
+      <p><i class="fas fa-hourglass-half" style="color:#d4a050; width:1.6rem;"></i> <strong>Pukul :</strong> 20.00 - 22.00</p>
+      <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:0.2rem;">
+        <span><i class="fas fa-tag" style="color:#d4a050;"></i> WAKTU</span>
+        <span><i class="fas fa-map-pin" style="color:#d4a050;"></i> TEMPAT</span>
+      </div>
+    </div>
+
+    <!-- ==================== 5. DAFTAR PENAMPILAN ==================== -->
+    <h2><i class="fas fa-masks-theater"></i> 5. Daftar Penampilan</h2>
+    <div class="grid-nusantara">
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🎭</span><span>Drama</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🎵</span><span>Angklung</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🎤</span><span>Vocal</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">⚙️</span><span>Configuration</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🎨</span><span>Art</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">👗</span><span>Modelling</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🚀</span><span>Grand Opening</span></div>
+      <div class="grid-item"><span class="label" style="font-weight:700;color:#d4a050;display:block;">🏁</span><span>Grand Closing</span></div>
+    </div>
+
+    <!-- ==================== 6. STRUKTUR PANITIA ==================== -->
+    <h2><i class="fas fa-users"></i> 6. Struktur Panitia</h2>
+    <div class="section-box-alt">
+      <h4>PIMPINAN PONDOK PESANTREN DARUNNAJAH</h4>
+      <p>Dr. K.H. Sofwan Manaf, M.Si. <br> K.H. Hadiyanto Arief, S.H. M.Bs.</p>
+
+      <h4>PEMBIMBING</h4>
+      <p>Ustadzah Lubna Azizah, S,Pd. <br> Ustadzah Aura Salsabila</p>
+
+      <h4>KETUA &amp; WAKIL</h4>
+      <p>Sayyidah Khodijah (Jawa Barat) <br> An Nisa Zahra Ardiana (Jawa Tengah)</p>
+
+      <h4>SEKRETARIS</h4>
+      <p>Ufairah Azizah (Jawa Barat) <br> Farzana Arfa Fahira (Jawa Barat)</p>
+
+      <h4>BENDAHARA</h4>
+      <p>Rasendria L Natharo (Jawa Barat) <br> Esta Naira Naznin (Jawa Tengah)</p>
+    </div>
+
+    <!-- SEMUA SIE -->
+    <div style="margin-top:1rem;">
+
+      <div class="section-box">
+        <h4>SIE. KEGIATAN</h4>
+        <div class="chip-wrap">
+          <span class="chip">Bella Aurelia (Jakarta Selatan)</span>
+          <span class="chip">Zahra Hanania (Jakarta Timur)</span>
+          <span class="chip">Khanza Khairunnisa (Jawa Barat)</span>
+          <span class="chip">Eldha Mutyara (Jakarta Utara)</span>
+          <span class="chip">Naura Quinka (Jakarta Selatan)</span>
+          <span class="chip">Mayleen Lucida (Bekasi)</span>
+          <span class="chip">Reyqa Firyal (Jawa Barat)</span>
+          <span class="chip">Ranasya Almira (Bekasi)</span>
+          <span class="chip">Fathynah Ashafah (Indonesia Timur)</span>
+          <span class="chip">Nur Asyifa (Sumatra)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>SIE. PANGGUNG</h4>
+        <div class="chip-wrap">
+          <span class="chip">Hafizah Nindita (Bekasi)</span>
+          <span class="chip">Aisyah Putri (Jakarta Selatan)</span>
+          <span class="chip">Naira Raisya (Jakarta Timur)</span>
+          <span class="chip">Nurul Fadila (Jakarta Timur)</span>
+          <span class="chip">Rhazana Khairunnisa (Jawa Barat)</span>
+          <span class="chip">Safa Syafira (Sumatra)</span>
+          <span class="chip">Alifia Risha Putri (Jakarta Utara)</span>
+          <span class="chip">Chelsea Nachila (Jakarta Utara)</span>
+          <span class="chip">Aqila Hananisa (Jakarta Selatan)</span>
+          <span class="chip">Safa Patria (Jakarta Pusat)</span>
+          <span class="chip">Amanda Qatrunmada (Jakarta Timur)</span>
+          <span class="chip">Shakila Queenara (Jakarta Utara)</span>
+          <span class="chip">Khansa Aisyah (Indonesia Timur)</span>
+          <span class="chip">Ivana Phelia (Bekasi)</span>
+          <span class="chip">Zakhrufu Mufida (Bekasi)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>SIE. PERLENGKAPAN</h4>
+        <div class="chip-wrap">
+          <span class="chip">Athifa Nur Zahidah (Banten)</span>
+          <span class="chip">Ummi R (Jakarta Barat)</span>
+          <span class="chip">Zalfa Putri Alifia (Jakarta Selatan)</span>
+          <span class="chip">Adiba Khanza (Sumatra)</span>
+          <span class="chip">Jill Eleva (Tangerang)</span>
+          <span class="chip">Dayu Azniga (Sumatra)</span>
+          <span class="chip">Danisha Athirah (Sulawesi)</span>
+          <span class="chip">Carrisa Alifiah (Jakarta Selatan)</span>
+          <span class="chip">Siti Salsabila (Sumatra)</span>
+          <span class="chip">Arahma (Sumatra)</span>
+          <span class="chip">Suci Kirania (Jakarta Selatan)</span>
+          <span class="chip">Raisita Az-zahra (Sulawesi)</span>
+          <span class="chip">Viola putri (Jakarta Selatan)</span>
+          <span class="chip">Rihaadatul Aisya (Bekasi)</span>
+          <span class="chip">Vanezza Khomairoh (Jakarta Pusat)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>SIE. KONSUMSI</h4>
+        <div class="chip-wrap">
+          <span class="chip">Tiaafirah Putri (Jakarta Timur)</span>
+          <span class="chip">Athira Aulia (Tangerang)</span>
+          <span class="chip">Aqilla Nazwa (Tangerang)</span>
+          <span class="chip">Sabiluna Asy Syifa (Tangerang)</span>
+          <span class="chip">Aefa M (Jakarta Pusat)</span>
+          <span class="chip">Mehnaz Alya (Jawa Tengah)</span>
+          <span class="chip">Deeandhra Najwa (Tangerang)</span>
+          <span class="chip">Elza Nabila (Jakarta Pusat)</span>
+          <span class="chip">Kaila Putri (Tangerang)</span>
+          <span class="chip">Aqila Azelya (Jakarta Timur)</span>
+          <span class="chip">Ghina Lintang (Jakarta Pusat)</span>
+          <span class="chip">Syakirah Nadhifa (Jawa Barat)</span>
+          <span class="chip">Marsya Az-zikra (Jakarta Selatan)</span>
+          <span class="chip">Nilam Novriyanti (Bekasi)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>SIE. DEKORASI</h4>
+        <div class="chip-wrap">
+          <span class="chip">Maysa Aprilia (Jakarta Barat)</span>
+          <span class="chip">Aqila Qonita (Jakarta Barat)</span>
+          <span class="chip">Raisyah A (Jakarta Pusat)</span>
+          <span class="chip">Carla Agya (Jakarta Timur)</span>
+          <span class="chip">Najmi Amira (Tangerang)</span>
+          <span class="chip">Syakira Ghina (Jakarta Barat)</span>
+          <span class="chip">Eryna Janeeta (Jakarta Timur)</span>
+          <span class="chip">Diajeng Sekar (Jakarta Timur)</span>
+          <span class="chip">Aisha Khanza (Jawa Barat)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>SIE. PENERANGAN</h4>
+        <div class="chip-wrap">
+          <span class="chip">Nabilah Khairunnisa (Jakarta Utara)</span>
+          <span class="chip">Asyifa Nadiah (Tangerang)</span>
+          <span class="chip">Raysa Salsabila (Bekasi)</span>
+          <span class="chip">Qayla Fitri (Jakarta Selatan)</span>
+          <span class="chip">Siti Qaisara (Tangerang)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>SIE. DOKUMENTASI</h4>
+        <div class="chip-wrap">
+          <span class="chip">Jihan Kamila (Tangerang)</span>
+          <span class="chip">Fairuz Asma (Jakarta Selatan)</span>
+          <span class="chip">Nafisha Sabilla (Tangerang)</span>
+          <span class="chip">Nurisya Habibah (Jawa Barat)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>PENERIMAAN TAMU &amp; HUB. MASYARAKAT</h4>
+        <div class="chip-wrap">
+          <span class="chip">Afrina Althafunisa (Bekasi)</span>
+          <span class="chip">Azka Rahmadiva (Tangerang)</span>
+          <span class="chip">Prameswari Adzkiya (Tangerang)</span>
+          <span class="chip">Adinda Rahma (Jakarta Selatan)</span>
+          <span class="chip">Nadine Nur Azizah (Jakarta Timur)</span>
+          <span class="chip">Nayla Syafwah (Tangerang)</span>
+          <span class="chip">Graciella Ghaliyah (Jakarta Timur)</span>
+          <span class="chip">Zalfa Naifatun Nisa (Jawa Barat)</span>
+          <span class="chip">Najwa Royya (Sumatra)</span>
+          <span class="chip">Kayyisa Elma (Tangerang)</span>
+          <span class="chip">Shakira Divya (Bekasi)</span>
+          <span class="chip">Naila Alma Kirana (Kalimantan Timur)</span>
+          <span class="chip">Nazma Malika (Tangerang)</span>
+          <span class="chip">Naurah Zakhirah (Jakarta Timur)</span>
+          <span class="chip">Nurin Najwa (Indonesia Timur)</span>
+          <span class="chip">Aisha Zahira (Jakarta Barat)</span>
+          <span class="chip">Ghezia Aiko (Jakarta Timur)</span>
+          <span class="chip">Inaya Putri (Jakarta Barat)</span>
+          <span class="chip">Ifya Laela (Tangerang)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>GRAND OPENING</h4>
+        <div class="chip-wrap">
+          <span class="chip">Annisa Ramadhani (Jakarta Barat)</span>
+          <span class="chip">Auliya Muhtaromah (Jakarta Utara)</span>
+          <span class="chip">Rivanny Dwi (Sulawesi)</span>
+          <span class="chip">Hanabelle Latisha (Jakarta Timur)</span>
+          <span class="chip">Awdah Bila (Tangerang)</span>
+          <span class="chip">Anindita Daru (Bekasi)</span>
+          <span class="chip">Alysha Sarah (Jawa barat)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>POETRY</h4>
+        <div class="chip-wrap">
+          <span class="chip">Rahma Tri Ratna (Jakarta Timur)</span>
+          <span class="chip">Allura Syifa (Jakarta Selatan)</span>
+          <span class="chip">Gladys Shafira (Jakarta Timur)</span>
+          <span class="chip">Salsabila Assyifa (Sumatra)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>KONFIGURASI</h4>
+        <div class="chip-wrap">
+          <span class="chip">Raja Kyra (Bekasi)</span>
+          <span class="chip">Zahira Aylakiva (Jawa Tengah)</span>
+          <span class="chip">Azzuhratujannah (Tangerang)</span>
+          <span class="chip">Widya Winanda (Jakarta Pusat)</span>
+          <span class="chip">Thania Yasmin (Jakarta Selatan)</span>
+          <span class="chip">Nur Zaskia (Sulawesi)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>ANGLKLUNG</h4>
+        <div class="chip-wrap">
+          <span class="chip">Meidatul Husna (Kalimantan Timur)</span>
+          <span class="chip">Miskah Adena (Jakarta Selatan)</span>
+          <span class="chip">Nadia Nur (Jakarta Utara)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>MODELLING</h4>
+        <div class="chip-wrap">
+          <span class="chip">Aqeela Nayyara (Tangerang)</span>
+          <span class="chip">Azalea Kalila (Jawa barat)</span>
+          <span class="chip">Alisya Andria (Jakarta Timur)</span>
+          <span class="chip">Hanun Raisa (Tangerang)</span>
+          <span class="chip">Adelia Ramadhani (Jakarta Pusat)</span>
+          <span class="chip">Fitria Rizki (Tangerang)</span>
+          <span class="chip">Ashyffa Siti (Jakarta Timur)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>VOCAL</h4>
+        <div class="chip-wrap">
+          <span class="chip">Nurfaiza Ruski (Tangerang)</span>
+          <span class="chip">Arshya Naura (Bekasi)</span>
+          <span class="chip">Nadya Tamara (Jakarta Timur)</span>
+          <span class="chip">Almira Tsulasia (Jakarta Utara)</span>
+          <span class="chip">Malika Khumairatul (Bekasi)</span>
+          <span class="chip">Nayla Munaya (Tangerang)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>DRAMA</h4>
+        <div class="chip-wrap">
+          <span class="chip">Azzahra Kayyisa (Bekasi)</span>
+          <span class="chip">Sri Khalila (Bekasi)</span>
+          <span class="chip">Hilwah Muthia (Indonesia Timur)</span>
+          <span class="chip">Ulya Rizki (Jakarta Timur)</span>
+          <span class="chip">Keysha Naveysha (Jakarta Barat)</span>
+          <span class="chip">Alzena Balqis (Bekasi)</span>
+          <span class="chip">Anindya Kaila (Jakarta Barat)</span>
+          <span class="chip">Aisha Sevilen (Tangerang)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>BOMKAL</h4>
+        <div class="chip-wrap">
+          <span class="chip">Raissa Tamimah (Bekasi)</span>
+          <span class="chip">Neva Raihanah (Jakarta Barat)</span>
+          <span class="chip">Mia Salma (Jakarta Barat)</span>
+          <span class="chip">Siti Hedda (Tangerang)</span>
+          <span class="chip">Gita Khairunnisa (Bekasi)</span>
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h4>RATOH JAROE</h4>
+        <div class="chip-wrap">
+          <span class="chip">Chalwa Uliya (Jakarta Timur)</span>
+          <span class="chip">Nayla Ramadhani (Sumatra)</span>
+          <span class="chip">Rarasati Dinda (Jakarta Timur)</span>
+          <span class="chip">Akifa Naila (Bekasi)</span>
+        </div>
+      </div>
+
+      <div class="section-box-alt">
+        <h4>GRAND CLOSING</h4>
+        <div class="chip-wrap">
+          <span class="chip">Jeviana Valencia (Tangerang)</span>
+          <span class="chip">Neyla Kaifa (Jawa Barat)</span>
+          <span class="chip">Aurel Rahma (Jakarta Timur)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 7. RENCANA ANGGARAN ==================== -->
+    <h2><i class="fas fa-coins"></i> 7. Rencana Anggaran</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>NO</th><th>BAGIAN</th><th>TOTAL</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Sekretaris &amp; Bendahara</td><td>Rp420.000</td></tr>
+          <tr><td>2</td><td>Sie. Dekorasi</td><td>Rp7.230.000</td></tr>
+          <tr><td>3</td><td>Sie. Perlengkapan &amp; Panggung</td><td>Rp5.734.000</td></tr>
+          <tr><td>4</td><td>Sie. Penampilan</td><td>Rp3.040.000</td></tr>
+          <tr><td>5</td><td>Sie. Penerangan</td><td>Rp5.285.000</td></tr>
+          <tr><td>6</td><td>Sie. Konsumsi &amp; Penerimaan Tamu</td><td>Rp4.200.000</td></tr>
+          <tr class="total-row"><td colspan="2">Total Keseluruhan</td><td>Rp25.909.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ==================== 8. PERSONALIA ==================== -->
+    <h2><i class="fas fa-id-card"></i> 8. Personalia</h2>
+    <h3>Penyelenggara</h3>
+    <p>Penyelenggara acara ini adalah santriwati kelas 4 TMI Darunnajah, di bawah naungan Departemen Pengasuhan Santri Darunnajah, yang beralamat di :</p>
+    <p style="padding-left:1rem;"><i class="fas fa-map-pin" style="color:#d4a050;"></i> Jl. Ulujami Raya No. 86 Pesanggrahan, Jakarta Selatan</p>
+
+    <h4>Contact Person</h4>
+    <p>Lubna Azizah : +62 821 3025 2451 <br> Aura Salsabila : +62 857 0646 9607</p>
+
+    <h4>Website</h4>
+    <p><a href="#">www.darunnajah.com</a></p>
+
+    <h4>Email</h4>
+    <p><a href="#">bhinnekatunggalika.dn.2026@gmail.com</a></p>
+
+    <h3>Untuk Transferan Dana Melalui</h3>
+    <p>Bank Mandiri Cabang KC JKT Cipulir Darunnajah a.n Darunnajah Charity <br> <strong style="color:#d4a050;">No. Rek : 1020013366114</strong></p>
+    <p>Dengan menyertakan kode unik : <strong style="color:#d4a050;">004</strong> (pada akhir nominal dana yang akan ditransfer ) <br> Contoh : Rp. 1.000.004</p>
+
+    <h3>Bukti Transfer Dikirim Via</h3>
+    <p>1. No Whatsapp : +62 821 3025 2451 : +62 857 0646 9607</p>
+    <p>2. Email : bhinnekatunggalika.dn.2026@gmail.com</p>
+
+    <!-- ==================== 9. GALERI KEGIATAN ==================== -->
+    <h2><i class="fas fa-images"></i> 9. Galeri Kegiatan</h2>
+    <div class="galeri-grid">
+      <div class="galeri-item"><i class="fas fa-quran"></i><span>Pembacaan Ayat Suci Al-Qur'an Oleh Panitia</span></div>
+      <div class="galeri-item"><i class="fas fa-chalkboard-user"></i><span>Sambutan Pertama Oleh Ustadzah</span></div>
+      <div class="galeri-item"><i class="fas fa-handshake"></i><span>Sambutan Oleh Ketua dan Wakil acara</span></div>
+      <div class="galeri-item"><i class="fas fa-people-arrows"></i><span>Grand Opening Pembukaan acara dengan berbagai penampilan yang menakjubkan</span></div>
+      <div class="galeri-item"><i class="fas fa-vest"></i><span>Modelling Pertunjukkan model dengan variasi pakaian adat daerah Indonesia</span></div>
+      <div class="galeri-item"><i class="fas fa-paintbrush"></i><span>Bomkal Pertunjukkan hasil karya lukis anggota dengan tema Bhinneka Tunggal Ika</span></div>
+      <div class="galeri-item"><i class="fas fa-feather"></i><span>Poetry Penampilan puisi oleh anggota</span></div>
+      <div class="galeri-item"><i class="fas fa-gift"></i><span>Kenangan Penyerahan kenang-kenangan oleh Ketua &amp; Wakil</span></div>
+      <div class="galeri-item"><i class="fas fa-masks-theater"></i><span>Drama Pertunjukkan karya drama oleh anggota dengan tema Bhinneka Tunggal Ika</span></div>
+      <div class="galeri-item"><i class="fas fa-microphone-alt"></i><span>Vocal Paduan suara oleh anggota dengan membawakan lagu pilihan bertemakan Nusantara</span></div>
+      <div class="galeri-item"><i class="fas fa-flag-checkered"></i><span>Grand Closing Penutupan acara dengan penampilan dari seluruh panitia acara</span></div>
+      <div class="galeri-item"><i class="fas fa-dance"></i><span>Tarian Tradisional Penampilan tarian dari berbagai daerah Indonesia</span></div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="footer-nusantara">
+      TERIMAKASIH HATUR NUHUN
+      <small>—  ꦲꦠꦸꦂ  ꦤꦸꦲꦸꦤ꧀  —</small>
+    </div>
+
+    <div class="ornament" style="margin-top:1.2rem;">❦ ❧ ✿ ❧ ❦</div>
+    <div class="ornament-line"></div>
+
+  </div>
+</body>
+</html>
